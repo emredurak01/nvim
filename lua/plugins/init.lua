@@ -35,6 +35,7 @@ return {
         "yaml-language-server",
         "json-lsp",
         "marksman",
+        "shfmt",
       },
     },
   },
@@ -178,7 +179,7 @@ return {
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
-    lazy = false,
+    lazy = true,
     opts = {},
   },
 
