@@ -33,46 +33,62 @@ end, { desc = "Explorer" })
 map("n", "<leader>/", "gcc", { desc = "Comment toggle", remap = true })
 map("v", "<leader>/", "gc", { desc = "Comment toggle", remap = true })
 
--- Handle telescope git errors
-local function git_repo(telescope_cmd)
+-- Handle git errors
+local function git_repo_snacks(snacks_cmd)
   return function()
     -- Check if in a git repo
     vim.fn.system "git rev-parse --is-inside-work-tree"
     if vim.v.shell_error == 0 then
-      require("telescope.builtin")[telescope_cmd]()
+      local ok, snacks = pcall(require, "snacks")
+      if ok then
+        snacks.picker[snacks_cmd]()
+      end
     else
-      vim.notify("Not a git repository.", vim.log.levels.WARN, { title = "Telescope" })
+      vim.notify("Not a git repository.", vim.log.levels.WARN, { title = "Snacks Picker" })
     end
   end
 end
 
 -- Git
-map("n", "<leader>gc", git_repo "git_commits", { desc = "Git commits" })
-map("n", "<leader>gs", git_repo "git_status", { desc = "Git status" })
-map("n", "<leader>gb", git_repo "git_branches", { desc = "Git branch" })
-map("n", "<leader>gf", git_repo "git_files", { desc = "Git files" })
-map("n", "<leader>ga", git_repo "git_stash", { desc = "Git stash" })
+map("n", "<leader>gc", git_repo_snacks "git_log", { desc = "Git commits" })
+map("n", "<leader>gs", git_repo_snacks "git_status", { desc = "Git status" })
+map("n", "<leader>gb", git_repo_snacks "git_branches", { desc = "Git branch" })
+map("n", "<leader>gf", git_repo_snacks "git_files", { desc = "Git files" })
+map("n", "<leader>ga", git_repo_snacks "git_stash", { desc = "Git stash" })
 
 -- Formatting
 map("n", "<leader>m", function()
   require("conform").format { lsp_fallback = true }
 end, { desc = "Format file" })
 
--- Find (Telescope)
-map(
-  "n",
-  "<leader>fa",
-  "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>",
-  { desc = "Find all files" }
-)
-map("n", "<leader>fh", "<cmd> Telescope help_tags <CR>", { desc = "Help page" })
-map("n", "<leader>fz", "<cmd> Telescope current_buffer_fuzzy_find <CR>", { desc = "Find in current buffer" })
-map("n", "<leader>fb", "<cmd> Telescope buffers <CR>", { desc = "Find buffers" })
-map("n", "<leader>fo", "<cmd> Telescope oldfiles <CR>", { desc = "Find oldfiles" })
-map("n", "<leader>ff", "<cmd> Telescope find_files <CR>", { desc = "Find files" })
-map("n", "<leader>fw", "<cmd> Telescope live_grep <CR>", { desc = "Live grep" })
-map("n", "<leader>fm", "<cmd> Telescope marks <CR>", { desc = "Find marks" })
-map("n", "<leader>ft", "<cmd> TodoTelescope <CR>", { desc = "Find todo" })
+-- Find (Snacks Picker)
+map("n", "<leader>ff", function()
+  Snacks.picker.files()
+end, { desc = "Find files" })
+map("n", "<leader>fa", function()
+  Snacks.picker.files { hidden = true, ignored = true, follow = true }
+end, { desc = "Find all files" })
+map("n", "<leader>fw", function()
+  Snacks.picker.grep()
+end, { desc = "Grep project" })
+map("n", "<leader>fb", function()
+  Snacks.picker.buffers()
+end, { desc = "Find buffers" })
+map("n", "<leader>fo", function()
+  Snacks.picker.recent()
+end, { desc = "Find oldfiles" })
+map("n", "<leader>fz", function()
+  Snacks.picker.lines()
+end, { desc = "Find in current buffer" })
+map("n", "<leader>fh", function()
+  Snacks.picker.help()
+end, { desc = "Help page" })
+map("n", "<leader>fm", function()
+  Snacks.picker.marks()
+end, { desc = "Find marks" })
+map("n", "<leader>ft", function()
+  Snacks.picker.todo_comments()
+end, { desc = "Find todo" })
 
 -- Terminal
 map({ "n", "t" }, "<A-f>", function()

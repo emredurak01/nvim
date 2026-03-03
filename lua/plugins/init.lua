@@ -160,29 +160,6 @@ return {
       words = { enabled = true },
       select = { enabled = true },
     },
-    keys = {
-      {
-        "<leader>e",
-        function()
-          Snacks.explorer()
-        end,
-        desc = "File Explorer",
-      },
-      {
-        "<leader>ff",
-        function()
-          Snacks.picker.files()
-        end,
-        desc = "Find Files",
-      },
-      {
-        "<leader>fw",
-        function()
-          Snacks.picker.grep()
-        end,
-        desc = "Grep Project",
-      },
-    },
   },
 
   {
