@@ -10,7 +10,9 @@ map({ "n", "v", "o" }, "E", "$", { desc = "Go to end of line" })
 map({ "n", "v", "o" }, "B", "^", { desc = "Go to start of line" })
 map("n", "<C-a>", "ggVG", { desc = "Select all" })
 ----
-
+-- Visual indent with n/m and keep selection
+map("v", "m", ">gv", { desc = "Indent right and keep selection" })
+map("v", "n", "<gv", { desc = "Indent left and keep selection" })
 -- Whichkey mappings
 -- Code
 map("n", "<leader>c", vim.lsp.buf.code_action, { desc = "Code Action" })
