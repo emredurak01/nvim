@@ -154,6 +154,30 @@ return {
       notifier = { enabled = true },
       picker = {
         enabled = true,
+        win = {
+          input = {
+            keys = {
+              ["<C-l>"] = { "focus_preview", mode = { "i", "n" } },
+              ["<C-j>"] = { "list_down", mode = { "i", "n" } },
+              ["<C-k>"] = { "list_up", mode = { "i", "n" } },
+            },
+          },
+          list = {
+            keys = {
+              ["<C-l>"] = { "focus_preview", mode = { "n" } },
+              ["<C-j>"] = { "list_down", mode = { "n" } },
+              ["<C-k>"] = { "list_up", mode = { "n" } },
+            },
+          },
+          preview = {
+            minimal = false,
+            keys = {
+              ["<C-h>"] = { "focus_list", mode = { "n" } },
+              ["<C-j>"] = { "preview_scroll_down", mode = { "n" } },
+              ["<C-k>"] = { "preview_scroll_up", mode = { "n" } },
+            },
+          },
+        },
         sources = {
           explorer = {
             layout = { preview = true },
