@@ -110,6 +110,22 @@ vim.api.nvim_create_autocmd("TermOpen", {
   end,
 })
 
+-- Splits
+map("n", "<leader>sh", "<cmd>split<CR>", { desc = "Split horizontal" })
+map("n", "<leader>sv", "<cmd>vsplit<CR>", { desc = "Split vertical" })
+map("n", "<leader>p", function()
+  local win = Snacks.picker.util.pick_win {
+    filter = function(win)
+      local ft = vim.bo[vim.api.nvim_win_get_buf(win)].filetype
+      return ft == "snacks_explorer" or ft == "snacks_picker_list" or vim.api.nvim_win_get_config(win).relative == ""
+    end,
+  }
+
+  if win and vim.api.nvim_win_is_valid(win) then
+    vim.api.nvim_set_current_win(win)
+  end
+end, { desc = "Pick window" })
+
 -- Remove NvChad defaults
 pcall(nomap, "n", "<leader>h") -- Horizontal term
 pcall(nomap, "n", "<leader>v") -- Vertical term

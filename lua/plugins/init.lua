@@ -100,6 +100,11 @@ return {
         { "<leader>f", group = "Find", icon = "󰈞" },
         { "<leader>t", group = "Themes", icon = "󱊖" },
         { "<leader>w", group = "Workspace", icon = "󰖯" },
+        { "<leader>s", group = "Split", icon = "󱂬" },
+
+        -- Sub Group Icons
+        { "<leader>sv", icon = "" },
+        { "<leader>sh", icon = "" },
 
         -- Direct Action Icons
         { "<leader>c", icon = "" },
@@ -110,6 +115,7 @@ return {
         { "<leader>e", icon = "󰙅" },
         { "<leader>/", icon = "󰅺" },
         { "<leader>d", icon = "󱖫" },
+        { "<leader>p", icon = "󰆟" },
 
         -- Force-hide the old groups
         { "<leader>ma", hidden = true },
