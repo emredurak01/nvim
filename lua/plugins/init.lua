@@ -101,6 +101,7 @@ return {
         { "<leader>t", group = "Themes", icon = "󱊖" },
         { "<leader>w", group = "Workspace", icon = "󰖯" },
         { "<leader>s", group = "Split", icon = "󱂬" },
+        { "<leader>r", group = "Replace", icon = "󰑐" },
 
         -- Sub Group Icons
         { "<leader>sv", icon = "" },
@@ -108,7 +109,6 @@ return {
 
         -- Direct Action Icons
         { "<leader>c", icon = "" },
-        { "<leader>r", icon = "󰑐" },
         { "<leader>m", icon = "󰉼" },
         { "<leader>b", icon = "󰝒" },
         { "<leader>x", icon = "󰅖" },
@@ -211,6 +211,13 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     lazy = false,
     opts = {},
+  },
+
+  {
+    "MagicDuck/grug-far.nvim",
+    config = function()
+      require("grug-far").setup {}
+    end,
   },
 
   {

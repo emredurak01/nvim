@@ -9,16 +9,30 @@ map("n", "q", "<Nop>", { desc = "Disable macro recording" })
 map({ "n", "v", "o" }, "E", "$", { desc = "Go to end of line" })
 map({ "n", "v", "o" }, "B", "^", { desc = "Go to start of line" })
 map("n", "<C-a>", "ggVG", { desc = "Select all" })
-----
--- Visual indent with n/m and keep selection
 map("v", "m", ">gv", { desc = "Indent right and keep selection" })
 map("v", "n", "<gv", { desc = "Indent left and keep selection" })
+
 -- Whichkey mappings
+--
 -- Code
 map("n", "<leader>c", vim.lsp.buf.code_action, { desc = "Code Action" })
-map("n", "<leader>r", function()
+
+-- Replace
+map("n", "<leader>rn", function()
   require "nvchad.lsp.renamer"()
-end, { desc = "Rename" })
+end, { desc = "Rename Node (LSP)" })
+
+map("n", "<leader>rp", function()
+  require("grug-far").open()
+end, { desc = "Replace project" })
+
+map("n", "<leader>rf", function()
+  require("grug-far").open { prefills = { paths = vim.fn.expand "%" } }
+end, { desc = "Replace file" })
+
+map("n", "<leader>rw", function()
+  require("grug-far").open { prefills = { search = vim.fn.expand "<cword>" } }
+end, { desc = "Replace word" })
 
 -- Buffers
 map("n", "<leader>b", "<cmd> enew <CR>", { desc = "Create buffer" })
@@ -36,7 +50,7 @@ map("n", "<leader>/", "gcc", { desc = "Comment toggle", remap = true })
 map("v", "<leader>/", "gc", { desc = "Comment toggle", remap = true })
 
 -- Handle git errors
-local function git_repo_snacks(snacks_cmd)
+local function git_action(action)
   return function()
     -- Check if in a git repo
     vim.fn.system "git rev-parse --is-inside-work-tree"
@@ -52,11 +66,54 @@ local function git_repo_snacks(snacks_cmd)
 end
 
 -- Git
-map("n", "<leader>gc", git_repo_snacks "git_log", { desc = "Git commits" })
-map("n", "<leader>gs", git_repo_snacks "git_status", { desc = "Git status" })
-map("n", "<leader>gb", git_repo_snacks "git_branches", { desc = "Git branch" })
-map("n", "<leader>gf", git_repo_snacks "git_files", { desc = "Git files" })
-map("n", "<leader>ga", git_repo_snacks "git_stash", { desc = "Git stash" })
+map(
+  "n",
+  "<leader>gc",
+  git_action(function()
+    Snacks.picker.git_log()
+  end),
+  { desc = "Git commits" }
+)
+map(
+  "n",
+  "<leader>gs",
+  git_action(function()
+    Snacks.picker.git_status()
+  end),
+  { desc = "Git status" }
+)
+map(
+  "n",
+  "<leader>gb",
+  git_action(function()
+    Snacks.picker.git_branches()
+  end),
+  { desc = "Git branch" }
+)
+map(
+  "n",
+  "<leader>gf",
+  git_action(function()
+    Snacks.picker.git_files()
+  end),
+  { desc = "Git files" }
+)
+map(
+  "n",
+  "<leader>ga",
+  git_action(function()
+    Snacks.picker.git_stash()
+  end),
+  { desc = "Git stash" }
+)
+map(
+  "n",
+  "<leader>gl",
+  git_action(function()
+    Snacks.lazygit()
+  end),
+  { desc = "Lazygit" }
+)
 map("n", "<leader>gh", "<cmd> Gitsigns preview_hunk_inline <CR>", { desc = "Git hunk" })
 
 -- Formatting
