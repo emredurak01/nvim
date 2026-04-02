@@ -17,6 +17,7 @@ local options = {
     cpp = { "clang-format" },
     go = { "gofmt" },
     rust = { "rustfmt" },
+    dart = { "dart_format" },
     sh = { "shfmt" },
   },
 

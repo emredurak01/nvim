@@ -13,6 +13,7 @@ local servers = {
   "jsonls",
   "marksman",
   "graphql",
+  "dartls"
 }
 vim.lsp.enable(servers)
 
