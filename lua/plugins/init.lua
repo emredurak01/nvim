@@ -102,20 +102,24 @@ return {
         { "<leader>w", group = "Workspace", icon = "󰖯" },
         { "<leader>s", group = "Split", icon = "󱂬" },
         { "<leader>r", group = "Replace", icon = "󰑐" },
+        { "<leader>c", group = "Code", icon = "" },
 
         -- Sub Group Icons
-        { "<leader>sv", icon = "" },
-        { "<leader>sh", icon = "" },
+        { "<leader>sv", desc = "Split Vertical", icon = "" },
+        { "<leader>sh", desc = "Split Horizontal", icon = "" },
+
+        -- Code Icons
+        { "<leader>cv", desc = "Manage venv", icon = "" },
+        { "<leader>ca", desc = "Code action", icon = "󱐋" },
 
         -- Direct Action Icons
-        { "<leader>c", icon = "" },
-        { "<leader>m", icon = "󰉼" },
-        { "<leader>b", icon = "󰝒" },
-        { "<leader>x", icon = "󰅖" },
-        { "<leader>e", icon = "󰙅" },
-        { "<leader>/", icon = "󰅺" },
-        { "<leader>d", icon = "󱖫" },
-        { "<leader>p", icon = "󰆟" },
+        { "<leader>m", desc = "Format", icon = "󰉼" },
+        { "<leader>b", desc = "New buffer", icon = "󰝒" },
+        { "<leader>x", desc = "Close buffer", icon = "󰅖" },
+        { "<leader>e", desc = "Explorer", icon = "󰙅" },
+        { "<leader>/", desc = "Comment", icon = "󰅺" },
+        { "<leader>d", desc = "Diagnostics", icon = "󱖫" },
+        { "<leader>p", desc = "Pick window", icon = "󰆟" },
 
         -- Force-hide the old groups
         { "<leader>ma", hidden = true },
@@ -237,6 +241,27 @@ return {
       { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
       { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
       { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
+  },
+
+  {
+    "linux-cultist/venv-selector.nvim",
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "nvim-lua/plenary.nvim",
+      "folke/snacks.nvim",
+    },
+    ft = "python",
+    cmd = "VenvSelect",
+    opts = {
+      settings = {
+        options = {
+          notify_user_on_venv_change = true,
+        },
+      },
+    },
+    keys = {
+      { "<leader>cv", "<cmd>VenvSelect<cr>", desc = "Select VirtualEnv", ft = "python" },
     },
   },
 }

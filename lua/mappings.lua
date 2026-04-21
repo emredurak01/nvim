@@ -15,7 +15,7 @@ map("v", "n", "<gv", { desc = "Indent left and keep selection" })
 -- Whichkey mappings
 --
 -- Code
-map("n", "<leader>c", vim.lsp.buf.code_action, { desc = "Code Action" })
+map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
 
 -- Replace
 map("n", "<leader>rn", function()
