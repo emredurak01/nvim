@@ -18,24 +18,50 @@ return {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
+        -- Lua --
         "lua-language-server",
         "stylua",
+        "luacheck",
+
+        -- Web (HTML / CSS / JS / TS) --
         "html-lsp",
         "css-lsp",
-        "prettier",
-        "pyright",
-        "black",
-        "isort",
         "typescript-language-server",
+        "eslint-lsp",
+        "prettier",
+
+        -- Python --
+        "pyright",
+        "ruff",
+
+        -- C / C++ --
         "clangd",
         "clang-format",
+
+        -- Go --
         "gopls",
+        "golangci-lint",
+
+        -- Rust --
         "rust-analyzer",
+
+        -- Shell --
         "bash-language-server",
-        "yaml-language-server",
-        "json-lsp",
-        "marksman",
+        "shellcheck",
         "shfmt",
+
+        -- Data formats --
+        "yaml-language-server",
+        "yamllint",
+        "json-lsp",
+        "taplo",
+
+        -- Markdown --
+        "marksman",
+        "markdownlint-cli2",
+
+        -- Graphql --
+        "graphql-language-service-cli",
       },
     },
   },
@@ -262,6 +288,19 @@ return {
     },
     keys = {
       { "<leader>cv", "<cmd>VenvSelect<cr>", desc = "Select VirtualEnv", ft = "python" },
+    },
+  },
+
+  {
+    "rachartier/tiny-code-action.nvim",
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+      { "folke/snacks.nvim" },
+    },
+    event = "LspAttach",
+    opts = {
+      backend = "vim",
+      picker = "snacks",
     },
   },
 }

@@ -3,6 +3,23 @@ require "nvchad.mappings"
 local map = vim.keymap.set
 local nomap = vim.keymap.del
 
+-- Remove NvChad defaults
+pcall(nomap, "n", "<leader>h") -- Horizontal term
+pcall(nomap, "n", "<leader>v") -- Vertical term
+pcall(nomap, "n", "<leader>n") -- Line number
+pcall(nomap, "n", "<leader>rn") -- Relative number
+pcall(nomap, "n", "<leader>ra") -- Old rename
+pcall(nomap, "n", "<leader>ds") -- Loclist diagnostics
+pcall(nomap, "n", "<leader>pt") -- Pick hidden term
+pcall(nomap, "n", "<leader>D") -- Type definition
+pcall(nomap, "n", "<leader>ca") -- Old code action
+pcall(nomap, "n", "<leader>ch") -- LSP help
+pcall(nomap, "n", "<leader>cm") -- Default LSP implementation
+pcall(nomap, "n", "<leader>ma") -- Old marks
+pcall(nomap, "n", "<leader>gt") -- Old git status
+pcall(nomap, "n", "<leader>fm") -- Old general format (replaced by <leader>m)
+pcall(nomap, "n", "<C-n>") -- Unmap default NvimTree toggle
+
 -- Editor custom mappings
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("n", "q", "<Nop>", { desc = "Disable macro recording" })
@@ -15,7 +32,9 @@ map("v", "n", "<gv", { desc = "Indent left and keep selection" })
 -- Whichkey mappings
 --
 -- Code
-map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
+map({ "n", "x" }, "<leader>ca", function()
+  require("tiny-code-action").code_action()
+end, { desc = "Code Action" })
 
 -- Replace
 map("n", "<leader>rn", function()
@@ -52,15 +71,11 @@ map("v", "<leader>/", "gc", { desc = "Comment toggle", remap = true })
 -- Handle git errors
 local function git_action(action)
   return function()
-    -- Check if in a git repo
     vim.fn.system "git rev-parse --is-inside-work-tree"
     if vim.v.shell_error == 0 then
-      local ok, snacks = pcall(require, "snacks")
-      if ok then
-        snacks.picker[snacks_cmd]()
-      end
+      action()
     else
-      vim.notify("Not a git repository.", vim.log.levels.WARN, { title = "Snacks Picker" })
+      vim.notify("Not a git repository.", vim.log.levels.WARN, { title = "Git" })
     end
   end
 end
@@ -118,7 +133,7 @@ map("n", "<leader>gh", "<cmd> Gitsigns preview_hunk_inline <CR>", { desc = "Git 
 
 -- Formatting
 map("n", "<leader>m", function()
-  require("conform").format { lsp_fallback = true }
+  require("conform").format { lsp_format = "fallback" }
 end, { desc = "Format file" })
 
 -- Find (Snacks Picker)
@@ -182,23 +197,6 @@ map("n", "<leader>p", function()
     vim.api.nvim_set_current_win(win)
   end
 end, { desc = "Pick window" })
-
--- Remove NvChad defaults
-pcall(nomap, "n", "<leader>h") -- Horizontal term
-pcall(nomap, "n", "<leader>v") -- Vertical term
-pcall(nomap, "n", "<leader>n") -- Line number
-pcall(nomap, "n", "<leader>rn") -- Relative number
-pcall(nomap, "n", "<leader>ra") -- Old rename
-pcall(nomap, "n", "<leader>ds") -- Loclist diagnostics
-pcall(nomap, "n", "<leader>pt") -- Pick hidden term
-pcall(nomap, "n", "<leader>D") -- Type definition
-pcall(nomap, "n", "<leader>ca") -- Old code action
-pcall(nomap, "n", "<leader>ch") -- LSP help
-pcall(nomap, "n", "<leader>cm") -- Default LSP implementation
-pcall(nomap, "n", "<leader>ma") -- Old marks
-pcall(nomap, "n", "<leader>gt") -- Old git status
-pcall(nomap, "n", "<leader>fm") -- Old general format (replaced by <leader>m)
-pcall(nomap, "n", "<C-n>") -- Unmap default NvimTree toggle
 
 -- Override NvChad default buffer-local actions
 vim.api.nvim_create_autocmd("LspAttach", {
