@@ -138,6 +138,11 @@ return {
         { "<leader>cv", desc = "Manage venv", icon = "" },
         { "<leader>ca", desc = "Code action", icon = "󱐋" },
 
+        -- Diff
+        { "<leader>gd", desc = "Diff explorer", icon = "" },
+        { "<leader>gD", desc = "Diff current file", icon = "" },
+        { "<leader>gy", desc = "Diff history", icon = "󰋚" },
+
         -- Direct Action Icons
         { "<leader>m", desc = "Format", icon = "󰉼" },
         { "<leader>b", desc = "New buffer", icon = "󰝒" },
@@ -301,6 +306,24 @@ return {
     opts = {
       backend = "vim",
       picker = "snacks",
+    },
+  },
+
+  {
+    "esmuellert/codediff.nvim",
+    cmd = "CodeDiff",
+    opts = {
+      diff = {
+        layout = "side-by-side",
+        jump_to_first_change = true,
+        cycle_next_hunk = true,
+      },
+      keymaps = {
+        view = {
+          toggle_explorer = "<Tab>",
+          focus_explorer = "ge",
+        },
+      },
     },
   },
 }

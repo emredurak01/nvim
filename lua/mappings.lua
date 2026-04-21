@@ -83,22 +83,6 @@ end
 -- Git
 map(
   "n",
-  "<leader>gc",
-  git_action(function()
-    Snacks.picker.git_log()
-  end),
-  { desc = "Git commits" }
-)
-map(
-  "n",
-  "<leader>gs",
-  git_action(function()
-    Snacks.picker.git_status()
-  end),
-  { desc = "Git status" }
-)
-map(
-  "n",
   "<leader>gb",
   git_action(function()
     Snacks.picker.git_branches()
@@ -130,6 +114,19 @@ map(
   { desc = "Lazygit" }
 )
 map("n", "<leader>gh", "<cmd> Gitsigns preview_hunk_inline <CR>", { desc = "Git hunk" })
+
+-- Diff
+map("n", "<leader>gd", "<cmd>CodeDiff<CR>", { desc = "Diff explorer" })
+map("n", "<leader>gD", "<cmd>CodeDiff file HEAD<CR>", { desc = "Diff current file" })
+map("n", "<leader>gy", "<cmd>CodeDiff history<CR>", { desc = "Diff history" })
+
+map("n", "<leader>x", function()
+  if vim.bo.filetype:match "^codediff" then
+    vim.notify("Use 'q' to close CodeDiff", vim.log.levels.INFO, { title = "CodeDiff" })
+    return
+  end
+  require("nvchad.tabufline").close_buffer()
+end, { desc = "Close buffer" })
 
 -- Formatting
 map("n", "<leader>m", function()
