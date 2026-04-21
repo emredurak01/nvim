@@ -173,7 +173,12 @@ return {
               key = "s",
               desc = "Restore session",
               action = function()
-                require("persistence").load()
+                local persistence = require "persistence"
+                if vim.fn.filereadable(persistence.current()) == 0 then
+                  vim.notify("No session found for this directory", vim.log.levels.WARN, { title = "Persistence" })
+                else
+                  persistence.load()
+                end
               end,
             },
             { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
