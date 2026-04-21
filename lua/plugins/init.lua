@@ -186,7 +186,21 @@ return {
       explorer = { enabled = true },
       image = { enabled = true },
       input = { enabled = true },
-      notifier = { enabled = true },
+      notifier = {
+        enabled = true,
+        filter = (function()
+          local seen = {}
+          return function(notif)
+            local key = notif.msg
+            local now = vim.uv.now()
+            if seen[key] and (now - seen[key]) < 2000 then
+              return false -- suppress duplicate within 2 seconds
+            end
+            seen[key] = now
+            return true
+          end
+        end)(),
+      },
       picker = {
         enabled = true,
         win = {
@@ -199,7 +213,6 @@ return {
           },
           list = {
             keys = {
-              ["<C-l>"] = { "focus_preview", mode = { "n" } },
               ["<C-j>"] = { "list_down", mode = { "n" } },
               ["<C-k>"] = { "list_up", mode = { "n" } },
             },
@@ -214,6 +227,8 @@ return {
           },
         },
         sources = {
+          files = { frecency = true },
+          recent = { frecency = true },
           explorer = {
             layout = { preview = true },
           },
