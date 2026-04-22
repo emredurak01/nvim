@@ -88,6 +88,8 @@ return {
         "bash",
         "markdown",
         "markdown_inline",
+        "dart",
+        "graphql",
       },
     },
   },
