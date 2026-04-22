@@ -19,6 +19,7 @@ pcall(nomap, "n", "<leader>ma") -- Old marks
 pcall(nomap, "n", "<leader>gt") -- Old git status
 pcall(nomap, "n", "<leader>fm") -- Old general format (replaced by <leader>m)
 pcall(nomap, "n", "<C-n>") -- Unmap default NvimTree toggle
+pcall(nomap, "n", "<leader>w") -- Workspaces
 
 -- Editor custom mappings
 map("n", ";", ":", { desc = "CMD enter command mode" })

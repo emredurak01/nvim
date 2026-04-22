@@ -176,6 +176,7 @@ return {
 
         -- Force-hide the old groups
         { "<leader>ma", hidden = true },
+        { "<leader>w", hidden = true },
       }
     end,
   },
