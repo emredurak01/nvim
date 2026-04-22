@@ -55,9 +55,6 @@ end, { desc = "Replace word" })
 
 -- Buffers
 map("n", "<leader>b", "<cmd> enew <CR>", { desc = "Create buffer" })
-map("n", "<leader>x", function()
-  require("nvchad.tabufline").close_buffer()
-end, { desc = "Close buffer" })
 
 -- Tree
 map("n", "<leader>e", function()
