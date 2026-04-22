@@ -21,7 +21,7 @@ return {
         -- Lua --
         "lua-language-server",
         "stylua",
-        "luacheck",
+        "selene",
 
         -- Web (HTML / CSS / JS / TS) --
         "html-lsp",
@@ -98,7 +98,7 @@ return {
     config = function()
       local lint = require "lint"
       lint.linters_by_ft = {
-        lua = { "luacheck" },
+        lua = { "selene" },
         sh = { "shellcheck" },
         yaml = { "yamllint" },
         markdown = { "markdownlint" },
