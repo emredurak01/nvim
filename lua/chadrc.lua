@@ -18,6 +18,11 @@ M.nvdash = { load_on_startup = false }
 M.ui = {
   tabufline = {
     lazyload = false,
+    modules = {
+      btns = function()
+        return ""
+      end,
+    },
   },
 }
 
