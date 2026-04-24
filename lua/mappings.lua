@@ -2,7 +2,7 @@ require "nvchad.mappings"
 
 local map = vim.keymap.set
 local nomap = vim.keymap.del
-vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true, silent = true })
+
 -- Remove NvChad defaults
 pcall(nomap, "n", "<leader>h") -- Horizontal term
 pcall(nomap, "n", "<leader>v") -- Vertical term
@@ -170,14 +170,21 @@ vim.api.nvim_create_autocmd("TermOpen", {
   callback = function(args)
     vim.schedule(function()
       if vim.api.nvim_buf_is_valid(args.buf) then
-        -- terminal insert'ten çık
-        vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { buffer = args.buf })
-
-        vim.keymap.set("n", "<Esc>", "<Nop>", { buffer = args.buf })
+        vim.keymap.set("t", "vv", [[<C-\><C-n>]], { buffer = args.buf })
+        vim.keymap.set("n", "<Esc>", "i", { buffer = args.buf })
       end
     end)
   end,
 })
+
+-- Opencode
+map({ "n", "t" }, "<leader>ot", function()
+  require("opencode").toggle()
+end, { desc = "Toggle opencode" })
+
+map({ "n", "x" }, "<leader>os", function()
+  require("opencode").select()
+end, { desc = "Select action" })
 
 -- Splits
 map("n", "<leader>sh", "<cmd>split<CR>", { desc = "Split horizontal" })

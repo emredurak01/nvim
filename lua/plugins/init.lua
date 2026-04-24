@@ -151,19 +151,22 @@ return {
         { "<leader>s", group = "Split", icon = "󱂬" },
         { "<leader>r", group = "Replace", icon = "󰑐" },
         { "<leader>c", group = "Code", icon = "" },
+        { "<leader>o", group = "Opencode", icon = "󱚣" },
 
         -- Sub Group Icons
         { "<leader>sv", desc = "Split Vertical", icon = "" },
         { "<leader>sh", desc = "Split Horizontal", icon = "" },
-
-        -- Code Icons
         { "<leader>cv", desc = "Manage venv", icon = "" },
         { "<leader>ca", desc = "Code action", icon = "󱐋" },
-
-        -- Diff
         { "<leader>gd", desc = "Diff explorer", icon = "" },
         { "<leader>gD", desc = "Diff current file", icon = "" },
         { "<leader>gy", desc = "Diff history", icon = "󰋚" },
+        { "<leader>ot", desc = "Toggle opencode", icon = "󱚣" },
+        { "<leader>os", desc = "Select session", icon = "" },
+        {
+          mode = "v",
+          { "<leader>oy", desc = "Send selection", icon = "" },
+        },
 
         -- Direct Action Icons
         { "<leader>m", desc = "Format", icon = "󰉼" },
@@ -383,25 +386,36 @@ return {
     event = "BufReadPre",
     opts = {},
   },
+
   {
-    "NickvanDyke/opencode.nvim",
+    "sudo-tee/opencode.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
+      {
+        "MeanderingProgrammer/render-markdown.nvim",
+        opts = {
+          anti_conceal = { enabled = false },
+          file_types = { "markdown", "opencode_output" },
+        },
+        ft = { "markdown", "opencode_output" },
+      },
       "folke/snacks.nvim",
     },
-    lazy = false,
+    lazy = true,
+    keys = { "<leader>ot", "<leader>os", "<leader>oy" },
     config = function()
-      vim.keymap.set({ "n", "x" }, "<leader>oa", function()
-        require("opencode").ask("@this: ", { submit = true })
-      end, { desc = "Ask opencode" })
-
-      vim.keymap.set({ "n", "x" }, "<leader>os", function()
-        require("opencode").select()
-      end, { desc = "Select action" })
-
-      vim.keymap.set({ "n", "t" }, "<leader>ot", function()
-        require("opencode").toggle()
-      end, { desc = "Toggle opencode" })
+      require("opencode").setup {
+        preferred_picker = "snacks",
+        preferred_completion = "blink",
+        default_global_keymaps = false,
+        keymap = {
+          editor = {
+            ["<leader>ot"] = { "toggle" },
+            ["<leader>os"] = { "select_session" },
+            ["<leader>oy"] = { "add_visual_selection", mode = { "v" } },
+          },
+        },
+      }
     end,
   },
 }
