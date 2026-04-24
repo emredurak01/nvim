@@ -150,23 +150,22 @@ return {
         { "<leader>w", group = "Workspace", icon = "󰖯" },
         { "<leader>s", group = "Split", icon = "󱂬" },
         { "<leader>r", group = "Replace", icon = "󰑐" },
-        { "<leader>c", group = "Code", icon = "" },
-        { "<leader>o", group = "Opencode", icon = "󱚣" },
+        { "<leader>c", group = "Code", icon = "", mode = { "v", "x" } },
+        { "<leader>/", desc = "Comment", icon = "󰅺", mode = { "v", "x" } },
+        { "<leader>o", group = "Opencode", icon = "󱚣", mode = { "v", "x" } },
+        { "<leader>m", desc = "Format", icon = "󰉼", mode = { "v", "x" } },
 
         -- Sub Group Icons
         { "<leader>sv", desc = "Split Vertical", icon = "" },
         { "<leader>sh", desc = "Split Horizontal", icon = "" },
         { "<leader>cv", desc = "Manage venv", icon = "" },
-        { "<leader>ca", desc = "Code action", icon = "󱐋" },
+        { "<leader>ca", desc = "Code action", icon = "󱐋", mode = { "v", "x" } },
         { "<leader>gd", desc = "Diff explorer", icon = "" },
         { "<leader>gD", desc = "Diff current file", icon = "" },
         { "<leader>gy", desc = "Diff history", icon = "󰋚" },
         { "<leader>ot", desc = "Toggle opencode", icon = "󱚣" },
         { "<leader>os", desc = "Select session", icon = "" },
-        {
-          mode = "v",
-          { "<leader>oy", desc = "Send selection", icon = "" },
-        },
+        { "<leader>oy", desc = "Send selection", icon = "󱚣", mode = { "v", "x" } },
 
         -- Direct Action Icons
         { "<leader>m", desc = "Format", icon = "󰉼" },
@@ -402,7 +401,7 @@ return {
       "folke/snacks.nvim",
     },
     lazy = true,
-    keys = { "<leader>ot", "<leader>os", "<leader>oy" },
+    keys = { "<leader>ot", "<leader>os", { "<leader>oy", mode = "v" } },
     config = function()
       require("opencode").setup {
         preferred_picker = "snacks",

@@ -20,6 +20,7 @@ pcall(nomap, "n", "<leader>gt") -- Old git status
 pcall(nomap, "n", "<leader>fm") -- Old general format (replaced by <leader>m)
 pcall(nomap, "n", "<C-n>") -- Unmap default NvimTree toggle
 pcall(nomap, "n", "<leader>w") -- Workspaces
+pcall(nomap, "v", "<leader>fm") -- Remove NvChad visual format default
 
 -- Editor custom mappings
 map("n", ";", ":", { desc = "CMD enter command mode" })
