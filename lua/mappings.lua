@@ -180,15 +180,6 @@ vim.api.nvim_create_autocmd("TermOpen", {
   end,
 })
 
--- Opencode
-map({ "n", "t" }, "<leader>ot", function()
-  require("opencode").toggle()
-end, { desc = "Toggle opencode" })
-
-map({ "n", "x" }, "<leader>os", function()
-  require("opencode").select()
-end, { desc = "Select action" })
-
 -- Splits
 map("n", "<leader>sh", "<cmd>split<CR>", { desc = "Split horizontal" })
 map("n", "<leader>sv", "<cmd>vsplit<CR>", { desc = "Split vertical" })
