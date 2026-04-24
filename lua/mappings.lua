@@ -113,6 +113,8 @@ map(
   { desc = "Lazygit" }
 )
 map("n", "<leader>gh", "<cmd> Gitsigns preview_hunk_inline <CR>", { desc = "Git hunk" })
+map("n", "]c", "<cmd>Gitsigns nav_hunk next<CR>", { desc = "Next hunk" })
+map("n", "[c", "<cmd>Gitsigns nav_hunk prev<CR>", { desc = "Prev hunk" })
 
 -- Diff
 map("n", "<leader>gd", "<cmd>CodeDiff<CR>", { desc = "Diff explorer" })

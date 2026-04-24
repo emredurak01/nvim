@@ -152,7 +152,7 @@ return {
         { "<leader>r", group = "Replace", icon = "󰑐" },
         { "<leader>c", group = "Code", icon = "", mode = { "v", "x" } },
         { "<leader>/", desc = "Comment", icon = "󰅺", mode = { "v", "x" } },
-        { "<leader>o", group = "Opencode", icon = "󱚣", mode = { "v", "x" } },
+        { "<leader>o", group = "Opencode", icon = "󱚣", mode = { "n", "v", "x" } },
         { "<leader>m", desc = "Format", icon = "󰉼", mode = { "v", "x" } },
 
         -- Sub Group Icons
