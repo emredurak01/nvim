@@ -383,4 +383,25 @@ return {
     event = "BufReadPre",
     opts = {},
   },
+  {
+    "NickvanDyke/opencode.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "folke/snacks.nvim",
+    },
+    lazy = false,
+    config = function()
+      vim.keymap.set({ "n", "x" }, "<leader>oa", function()
+        require("opencode").ask("@this: ", { submit = true })
+      end, { desc = "Ask opencode" })
+
+      vim.keymap.set({ "n", "x" }, "<leader>os", function()
+        require("opencode").select()
+      end, { desc = "Select action" })
+
+      vim.keymap.set({ "n", "t" }, "<leader>ot", function()
+        require("opencode").toggle()
+      end, { desc = "Toggle opencode" })
+    end,
+  },
 }
